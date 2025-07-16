@@ -188,15 +188,16 @@ wheels = [
 ]
 
 [[package]]
-name = "manim-test"
-version = "0.1.0"
-source = { virtual = "." }
+name = "manim-automata"
+version = "0.2.14"
+source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "manim" },
+    { name = "xmltodict" },
 ]
-
-[package.metadata]
-requires-dist = [{ name = "manim", specifier = ">=0.19.0" }]
+sdist = { url = "https://files.pythonhosted.org/packages/ad/6f/44b29373b532cc57b3e2f835010468ddd3cbe448548ac297215b373e2625/manim_automata-0.2.14.tar.gz", hash = "sha256:3e9636d2f6d674b6762611e18ce399a3f476932f3931dc2593efd0e47764c55a", size = 39783, upload-time = "2022-12-31T15:36:34.768Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/73/ed/0c825599604e341241fb7867627c4b287b113aa161136b1167ec3054357e/manim_automata-0.2.14-py3-none-any.whl", hash = "sha256:ac21797f9454c2857cd872d64ae1a6da6c4698dfcc39330b3db745629ad85937", size = 26531, upload-time = "2022-12-31T15:36:33.41Z" },
+]
 
 [[package]]
 name = "manimpango"
@@ -534,6 +535,21 @@ wheels = [
 ]
 
 [[package]]
+name = "some4"
+version = "0.1.0"
+source = { virtual = "." }
+dependencies = [
+    { name = "manim" },
+    { name = "manim-automata" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "manim", specifier = ">=0.19.0" },
+    { name = "manim-automata", specifier = ">=0.2.14" },
+]
+
+[[package]]
 name = "soupsieve"
 version = "2.7"
 source = { registry = "https://pypi.org/simple" }
@@ -597,4 +613,13 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/07/f6/d0e5b343768e8bcb4cda79f0f2f55051bf26177ecd5651f84c07567461cf/watchdog-6.0.0-py3-none-win32.whl", hash = "sha256:07df1fdd701c5d4c8e55ef6cf55b8f0120fe1aef7ef39a1c6fc6bc2e606d517a", size = 79065, upload-time = "2024-11-01T14:07:09.525Z" },
     { url = "https://files.pythonhosted.org/packages/db/d9/c495884c6e548fce18a8f40568ff120bc3a4b7b99813081c8ac0c936fa64/watchdog-6.0.0-py3-none-win_amd64.whl", hash = "sha256:cbafb470cf848d93b5d013e2ecb245d4aa1c8fd0504e863ccefa32445359d680", size = 79070, upload-time = "2024-11-01T14:07:10.686Z" },
     { url = "https://files.pythonhosted.org/packages/33/e8/e40370e6d74ddba47f002a32919d91310d6074130fe4e17dabcafc15cbf1/watchdog-6.0.0-py3-none-win_ia64.whl", hash = "sha256:a1914259fa9e1454315171103c6a30961236f508b9b623eae470268bbcc6a22f", size = 79067, upload-time = "2024-11-01T14:07:11.845Z" },
+]
+
+[[package]]
+name = "xmltodict"
+version = "0.13.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/39/0d/40df5be1e684bbaecdb9d1e0e40d5d482465de6b00cbb92b84ee5d243c7f/xmltodict-0.13.0.tar.gz", hash = "sha256:341595a488e3e01a85a9d8911d8912fd922ede5fecc4dce437eb4b6c8d037e56", size = 33813, upload-time = "2022-05-08T07:00:04.916Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/94/db/fd0326e331726f07ff7f40675cd86aa804bfd2e5016c727fa761c934990e/xmltodict-0.13.0-py2.py3-none-any.whl", hash = "sha256:aa89e8fd76320154a40d19a0df04a4695fb9dc5ba977cbb68ab3e4eb225e7852", size = 9971, upload-time = "2022-05-08T07:00:02.898Z" },
 ]

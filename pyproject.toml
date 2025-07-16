@@ -1,9 +1,10 @@
 [project]
-name = "manim-test"
+name = "some4"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "manim>=0.19.0",
+    "manim-automata>=0.2.14",
 ]

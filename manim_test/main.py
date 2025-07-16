@@ -1,8 +1,21 @@
 import manim
+import manim_automata
 
 
-class CreateCircle(manim.Scene):
+class Test(manim.MovingCameraScene):
     def construct(self):
-        logic_form = manim.Tex(r"$x_1 \land \neg x_2$", font_size=100)
-        self.play(manim.Create(logic_form))
-        self.wait(1.0)
+        manim_automaton = manim_automata.ManimAutomaton(
+            xml_file="test.jff", 
+            background_stroke_color=manim.WHITE, 
+            color=manim.WHITE, 
+            stroke_color=manim.WHITE,
+            fill_color=manim.WHITE,
+        )
+
+        self.camera.frame_width = manim_automaton.width + 10
+        self.camera.frame_height = manim_automaton.height + 10
+        self.camera.frame.move_to(manim_automaton) 
+
+        self.play(
+            manim.DrawBorderThenFill(manim_automaton)
+        )
