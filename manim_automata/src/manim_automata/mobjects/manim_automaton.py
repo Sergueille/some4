@@ -87,10 +87,20 @@ class ManimAutomaton(FiniteStateAutomaton, VGroup, abc.ABC):
         elif xml_file:
             self.process_xml(xml_file)
 
+        self.highlighted_state = None
+
+        for state in self.states:
+            if state.initial:
+                self.highlighted_state = state
+
+        radius_mult = 2 * 0.45 if self.highlighted_state.final else 1.0
+        self.highlight_circle = Circle(radius=1.5*radius_mult, color=WHITE, fill_color=WHITE, fill_opacity=1.0, z_index=-1)
+        self.highlight_circle.move_to(self.highlighted_state.circle.get_center())
 
         #add manim_states to screen/renderer
         self.add(*self.states)
         self.add(*self.transitions)
+        self.add(self.highlight_circle)
 
 
     def add_manim_state(self, manim_state: ManimState):
@@ -514,5 +524,51 @@ class ManimAutomaton(FiniteStateAutomaton, VGroup, abc.ABC):
                 animations.append(self.manim_animations.animate_transform_to_new_subscript_object(state.subscript,  new_subscript_object))
         
         return animations
+
+
+    def set_highlighted_state(self, state_id, scene):
+
+        res = None
+
+        start_state = self.highlighted_state
+        end_state = None
+        arrow = None
+
+        for state in self.states:
+            if state.id == state_id:
+                end_state = state
+
+        for transition in self.transitions:
+            if transition.transition_from == start_state and transition.transition_to == end_state:
+                arrow = transition.arrow
+
+        self.highlighted_state = end_state
+
+        middle = (start_state.circle.get_center() + end_state.circle.get_center()) * 0.5
+
+        radius_mult = 2 * 0.45 if end_state.final else 1.0
+        
+        intermediate = Circle(radius=0.0, color=WHITE, fill_color=WHITE, fill_opacity=1.0, z_index=-1).move_to(middle)
+        new_highlight = Circle(radius=1.5*radius_mult, color=WHITE, fill_color=WHITE, fill_opacity=1.0, z_index=-1).move_to(end_state.circle.get_center())
+
+        bold_arrow = arrow.copy()
+        thin_arrow = arrow.copy()
+        bold_arrow.set_stroke(width=10)
+
+        scene.play(
+            Transform(self.highlight_circle, intermediate, rate_func=rate_functions.ease_in_expo),
+            *(start_state.revert_highlight_animation(scene) if start_state != None else []),
+            Transform(arrow, bold_arrow),
+            run_time=0.2
+        )
+
+        scene.play(
+            Transform(self.highlight_circle, new_highlight, rate_func=rate_functions.ease_out_expo),
+            *end_state.highlight_animation(scene),
+            Transform(arrow, thin_arrow),
+            run_time=0.2
+        )
+
+        return res
 
         

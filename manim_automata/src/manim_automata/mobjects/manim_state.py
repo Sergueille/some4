@@ -29,7 +29,7 @@ class ManimState(State, VGroup):
         #manim settings for animations and colors
         self.animation_style = animation_style
         
-        self.text = Tex(name, font_size=100)
+        self.text = Tex(name, font_size=100, color="#000000" if initial else "#ffffff")
         self.circle = Circle(radius=1.5, color=WHITE)
 
         if True:
@@ -65,4 +65,12 @@ class ManimState(State, VGroup):
         # self.manim_state = VGroup(arrow, self.manim_state)
         self.add(arrow)
 
-
+    def highlight_animation(self, scene):
+        return [
+            self.text.animate.set_color("#000000")
+        ]
+            
+    def revert_highlight_animation(self, scene):
+        return [
+            self.text.animate.set_color("#ffffff")
+        ]
