@@ -528,8 +528,6 @@ class ManimAutomaton(FiniteStateAutomaton, VGroup, abc.ABC):
 
     def set_highlighted_state(self, state_id, scene):
 
-        res = None
-
         start_state = self.highlighted_state
         end_state = None
         arrow = None
@@ -553,7 +551,7 @@ class ManimAutomaton(FiniteStateAutomaton, VGroup, abc.ABC):
 
         bold_arrow = arrow.copy()
         thin_arrow = arrow.copy()
-        bold_arrow.set_stroke(width=10)
+        bold_arrow.set_stroke(width=10, color="#88ff88")
 
         scene.play(
             Transform(self.highlight_circle, intermediate, rate_func=rate_functions.ease_in_expo),
@@ -568,7 +566,26 @@ class ManimAutomaton(FiniteStateAutomaton, VGroup, abc.ABC):
             Transform(arrow, thin_arrow),
             run_time=0.2
         )
+            
+    def highlight_read_character(self, other_state_id, scene):
+        transition = None
 
-        return res
+        for t in self.transitions:
+            if t.transition_from == self.highlighted_state and t.transition_to.id == other_state_id:
+                transition = t
 
-        
+        t_highlighted = transition.copy()
+        t_normal = transition.copy()
+
+        t_highlighted.read_symbols[0][0][0].set_color("#88ff88").scale(2.0)
+
+        scene.play(
+            Transform(transition, t_highlighted),
+            run_time=0.2
+        )
+
+        scene.play(
+            Transform(transition, t_normal),
+            run_time=0.2
+        )
+    
